@@ -59,20 +59,22 @@
 			success = false;
 
 		// test each media query
-		$(this.shuffles).each(function(key, val) {
-			if(window.matchMedia(val.test).matches) {
+		if(window.matchMedia) {
+			$(this.shuffles).each(function(key, val) {
+				if(window.matchMedia(val.test).matches) {
 
-				// if matching media query has changed then shuffle
-				if(scope.current !== val.test) {
-					scope.current = val.test;
-					scope.shuffle(val.sequence);
+					// if matching media query has changed then shuffle
+					if(scope.current !== val.test) {
+						scope.current = val.test;
+						scope.shuffle(val.sequence);
+					}
+					
+					// mark as media query passed and end loop
+					success = true;
+					return false;
 				}
-				
-				// mark as media query passed and end loop
-				success = true;
-				return false;
-			}
-		});
+			});
+		}
 
 		// return to default if nothing matched
 		if(!success && this.current !== 'default') {
