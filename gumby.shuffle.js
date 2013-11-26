@@ -57,7 +57,7 @@
 	// loop round each test
 	// if matchMedia passes then shuffle with that sequence
 	Shuffle.prototype.handleTests = function() {
-		var scope = this, 
+		var scope = this,
 			success = false;
 
 		// test each media query
@@ -70,7 +70,7 @@
 						scope.current = val.test;
 						scope.shuffle(val.sequence);
 					}
-					
+
 					// mark as media query passed and end loop
 					success = true;
 					return false;
@@ -127,10 +127,11 @@
 
 	// return array of test:sequence objects
 	Shuffle.prototype.parseAttrValue = function(str) {
-		var supp = str.split(','),
+		var scope = this,
+			supp = str.split(','),
 			res = [], splt = [];
 
-		// multiple can be supplied so loop round and create object 
+		// multiple can be supplied so loop round and create object
 		$(supp).each(function(key, val) {
 			splt = val.split('|');
 			if(splt.length !== 2) {
@@ -139,12 +140,27 @@
 
 			// object containing Modernizr test or media query and dash separated sequence
 			res.push({
-				'test' : splt[0],
+				'test' : scope.shorthand(splt[0]),
 				'sequence' : splt[1]
 			});
 		});
 
 		return res;
+	};
+
+	// replace < and > with min/max width media queries
+	Shuffle.prototype.shorthand = function(str) {
+		// replace < and >
+		if(str.indexOf('>') > -1 || str.indexOf('<') > -1) {
+			str = str.replace('>', 'min-width: ').replace('<', 'max-width: ');
+		}
+
+		// check if media query wrapped in ()
+		if(str.charAt(0) !== '(' && str.charAt(str.length - 1) !== ')') {
+			str = '('+str+')';
+		}
+
+		return str;
 	};
 
 	// add initialisation

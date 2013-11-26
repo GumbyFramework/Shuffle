@@ -10,7 +10,7 @@ A bower package is available to install this module into your project. We recomm
 
 	$ bower install gumby-shuffle
 
-Include gumby.shuffle.js in the same fashion as your other UI modules, after gumby.js and before gumby.init.js. In production you should minify JavaScript files into a single optimized gumby.min.js file, ensuring the order (gumby.js, UI modules, gumby.init.js) is retained. 
+Include gumby.shuffle.js in the same fashion as your other UI modules, after gumby.js and before gumby.init.js. In production you should minify JavaScript files into a single optimized gumby.min.js file, ensuring the order (gumby.js, UI modules, gumby.init.js) is retained.
 
 	<!--
 	Include gumby.js followed by UI modules.
@@ -20,7 +20,7 @@ Include gumby.shuffle.js in the same fashion as your other UI modules, after gum
 	<script src="/bower_components/gumby/js/libs/ui/gumby.toggleswitch.js"></script>
 	<script src="/bower_components/gumby-shuffle/gumby.shuffle.js"></script>
 	<script src="/bower_components/gumby/js/libs/gumby.init.js"></script>
-	
+
 	<!-- In production minifiy and combine the above files into gumby.min.js -->
 	<script src="js/gumby.min.js"></script>
 	<script src="js/plugins.js"></script>
@@ -34,14 +34,27 @@ Using the shuffle module is simple. Add a `gumby-shuffle` attribute to any row c
 	<!-- between 768px and 400px the child columns will be re-ordered to 1-0-2 -->
 	<!-- <= 400px the child columns will be re-ordered to 2-1-0 -->
 	<!-- otherwise default order will be restored -->
-	<div class="row" 
-		 gumby-shuffle="only screen and (max-width: 768px) and (min-width: 400px)|1-0-2,only screen and (max-width: 400px)|2-1-0">
-		
+	<div class="row"
+		 gumby-shuffle="(max-width: 768px) and (min-width: 400px)|1-0-2,(max-width: 400px)|2-1-0">
+
 		<div class="four columns">…</div>
 		<div class="four columns">…</div>
 		<div class="four columns">…</div>
 	</div>
+
+### Shorthand
+
+The characters `<` and `>` can be used as shorthand for `max-width` and `min-width` to make it easier and less verbose.
+
+For exampe, the following...
+
+	<div gumby-shuffle="< 768px | 2-1-0"></div>
 	
+Will be converted to...
+
+	<div gumby-shuffle="(max-width: 768px) | 2-1-0"></div>
+
+
 *The media queries are passed directly to [JavaScript's matchMedia function](https://developer.mozilla.org/en-US/docs/Web/API/window.matchMedia) which is not supported in <= IE9, but fear not, you can include [Paul Irish's polyfil](https://github.com/paulirish/matchMedia.js/) and all will be well*
 
 
@@ -60,5 +73,5 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-	
-	
+
+
