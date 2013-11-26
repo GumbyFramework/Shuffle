@@ -44,6 +44,16 @@ Using the shuffle module is simple. Add a `gumby-shuffle` attribute to any row c
 
 ### Shorthand
 
+The characters `<` and `>` can be used as shorthand for `max-width` and `min-width` to make it easier and less verbose.
+
+For exampe, the following...
+
+	<div gumby-shuffle="< 768px | 2-1-0"></div>
+	
+Will be converted to...
+
+	<div gumby-shuffle="(max-width: 768px) | 2-1-0"></div>
+
 
 *The media queries are passed directly to [JavaScript's matchMedia function](https://developer.mozilla.org/en-US/docs/Web/API/window.matchMedia) which is not supported in <= IE9, but fear not, you can include [Paul Irish's polyfil](https://github.com/paulirish/matchMedia.js/) and all will be well*
 
