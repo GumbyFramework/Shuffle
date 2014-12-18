@@ -1,7 +1,7 @@
 /**
 * Gumby Shuffle
 */
-!function() {
+!function($) {
 
 	'use strict';
 
@@ -194,4 +194,4 @@
 			Gumby.initialize('shuffle');
 		}
 	});
-}();
+}(jQuery);
